@@ -41,8 +41,10 @@ docs/           PLAN-jassi.md, anime-portfolio-plan-general.md
 - One reveal pattern everywhere: a diagonal slash wipe (clip-path). "Limited animation" (stepped easing) for small accents.
 - Only transform, opacity and clip-path are animated. Reduced motion is a calm "manga mode": no scrub, no parallax,
   no blink, no speed lines, no petals, no stacking; short fades only.
-- The character is an original SVG drawn for the site (`components/Character.tsx`), based on a photo. Swap in better art
-  by keeping the layer names (back, body, head, front).
+- The hero portrait is `public/portrait/jassi.webp`: an illustrated portrait of Jassi (supplied by Vikrant as the
+  close match), cut out of its background with Apple Vision, edges cleaned, soft fade at the sides and bottom,
+  65 KB. To use a different portrait, replace that file (transparent WebP, 820 x 1200) or change the size in
+  `chapters/Intro.tsx`. The earlier hand-drawn SVG character was dropped because it did not look like him.
 
 ## Deploy
 

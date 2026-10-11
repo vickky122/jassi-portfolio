@@ -128,6 +128,7 @@ No GitHub or tech-stack material anywhere on the site. The site itself, built wi
 | 11 Oct 2026 | Steps 1-10 built in one pass as a first version (see README). Character is an original SVG, not AI art. Not yet done: Step 11 checks (Lighthouse, real devices, OG image, JSON-LD), deploy. |
 | 11 Oct 2026 | Added OG image, sitemap, robots, Person JSON-LD (public facts only). TODO slots filled with wording restated from the CV, marked for approval in `content.ts`. Lighthouse mobile (local production build): home 93 / 100 / 100 / 100, plain view 99 / 100 / 100 / 100. Home LCP 3.0 s on a first visit because of the opening sequence (target < 2.5 s); CLS 0. |
 | 11 Oct 2026 | **Deployed**: private repo `vickky122/jassi-portfolio`, live at https://jassi-sharma.vercel.app (Vercel Hobby, project `jassi-sharma`). Commit identity is the personal GitHub no-reply address with no co-author trailer; Vercel Authentication disabled so links open without login. Live checks: pages, share image, sitemap, JSON-LD all use the new address; the served resume PDF has no phone, address, father's name or date of birth. |
+| 12 Oct 2026 | Hero character changed: the hand-drawn SVG did not match his face, so the hero now uses the illustrated portrait Vikrant supplied as the close match (cut out, edges cleaned, faded), in front of the giant name on the red sun. Outfit in that image is a black hooded jacket, not the suit. |
 
 ## 11. Next action
 

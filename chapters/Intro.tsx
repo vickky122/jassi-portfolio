@@ -1,7 +1,7 @@
 "use client";
 
+import Image from "next/image";
 import { useRef } from "react";
-import { Character } from "@/components/Character";
 import { Jp } from "@/components/Jp";
 import { SpeedLines } from "@/components/SpeedLines";
 import { content } from "@/content/content";
@@ -11,8 +11,8 @@ import { MQ, motion, slash } from "@/lib/motion/motion";
 /**
  * Chapter 01. The giant name sits behind the layered character, on a red sun disc. Entrance plays after the
  * opening ("site-ready"). Scroll: the two name lines slide apart and the character rises slightly (scrubbed).
- * Cursor: the character's layers drift at different depths and the pupils follow (multiplane camera).
- * Reduced motion: a short fade, then everything is still ("manga mode"): no drift, no scrub, no blink.
+ * Cursor: the portrait, the sun disc and the speed lines drift at different depths (multiplane camera).
+ * Reduced motion: a short fade, then everything is still ("manga mode"): no drift, no scrub.
  */
 export function Intro() {
   const root = useRef<HTMLElement>(null);
@@ -79,16 +79,13 @@ export function Intro() {
         if (!calm && fine) {
           // cursor parallax: each character layer moves by its own depth
           const layers = q("[data-depth]").map((g) => {
-            const d = Number((g as unknown as SVGElement).dataset.depth);
+            const d = Number((g as HTMLElement).dataset.depth);
             return {
               x: gsap.quickTo(g, "x", { duration: 0.9, ease: "power3.out" }),
               y: gsap.quickTo(g, "y", { duration: 0.9, ease: "power3.out" }),
               d,
             };
           });
-          const pupils = q(".pupils")[0];
-          const px = pupils && gsap.quickTo(pupils, "x", { duration: 0.5, ease: "power3.out" });
-          const py = pupils && gsap.quickTo(pupils, "y", { duration: 0.5, ease: "power3.out" });
           const disc = q("[data-pdisc]")[0];
           const dx = gsap.quickTo(disc, "x", { duration: 1.1, ease: "power3.out" });
           const dy = gsap.quickTo(disc, "y", { duration: 1.1, ease: "power3.out" });
@@ -101,44 +98,11 @@ export function Intro() {
               x(nx * 14 * d);
               y(ny * 8 * d);
             });
-            px?.(nx * 5);
-            py?.(ny * 3);
             dx(nx * -18);
             dy(ny * -10);
           };
           window.addEventListener("pointermove", onMove, { passive: true });
           cleanups.push(() => window.removeEventListener("pointermove", onMove));
-        }
-
-        if (!calm) {
-          // an occasional blink: swap the two eye states for a moment, only while the hero is on screen
-          const open = q(".eyes-open")[0];
-          const shut = q(".eyes-closed")[0];
-          let alive = true;
-          let visible = true;
-          let call: gsap.core.Tween | undefined;
-          const schedule = () => {
-            call = gsap.delayedCall(2.4 + (Math.sin(performance.now()) + 1) * 1.8, () => {
-              if (!alive) return;
-              if (visible) {
-                gsap.set(open, { opacity: 0 });
-                gsap.set(shut, { opacity: 1 });
-                gsap.delayedCall(0.12, () => {
-                  gsap.set(open, { opacity: 1 });
-                  gsap.set(shut, { opacity: 0 });
-                });
-              }
-              schedule();
-            });
-          };
-          schedule();
-          const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting));
-          io.observe(el);
-          cleanups.push(() => {
-            alive = false;
-            call?.kill();
-            io.disconnect();
-          });
         }
 
         return () => cleanups.forEach((fn) => fn());
@@ -202,10 +166,17 @@ export function Intro() {
       {/* the character: wrapper rises on scroll, inner figure does the entrance */}
       <div data-rise className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex justify-center">
         <div data-figure data-intro className="h-[74svh] md:h-[88svh]">
-          <Character
-            title={`Illustrated portrait of ${name.first} ${name.last}: a young man with thick dark hair swept across the forehead and a full short beard, in a black suit and a red and navy striped tie`}
-            className="h-full w-auto"
-          />
+          <div data-depth="1" className="h-full">
+            <Image
+              src="/portrait/jassi.webp"
+              alt={`Illustrated portrait of ${name.first} ${name.last}: a man with short dark hair and a full dark beard, in a black hooded jacket`}
+              width={820}
+              height={1200}
+              priority
+              sizes="(min-width: 768px) 60svh, 52svh"
+              className="h-full w-auto max-w-none"
+            />
+          </div>
         </div>
       </div>
 
