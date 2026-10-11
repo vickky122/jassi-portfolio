@@ -44,8 +44,22 @@ docs/           PLAN-jassi.md, anime-portfolio-plan-general.md
 - The character is an original SVG drawn for the site (`components/Character.tsx`), based on a photo. Swap in better art
   by keeping the layer names (back, body, head, front).
 
+## Deploy
+
+Live at **https://jassi-sharma.vercel.app** (Vercel Hobby, Next.js preset, project `jassi-sharma`, deploys from
+`main` of the private GitHub repo `vickky122/jassi-portfolio`). Notes:
+
+- `lib/site.ts` takes the site address from `NEXT_PUBLIC_SITE_URL` if set, else Vercel's production URL, so the
+  canonical URL, sitemap, share image and structured data are correct without any setting. After attaching a custom
+  domain, no change is needed (or set `NEXT_PUBLIC_SITE_URL`) and redeploy.
+- Vercel's free plan builds only commits authored by the account owner. Commit with the personal identity
+  (this repo's local git config: `vickky122` and the GitHub no-reply address), not a work email, or the deploy is
+  marked Blocked. Commits carry no co-author trailer.
+- Vercel Authentication (the login wall) is switched off, so every deployment link opens directly.
+- The resume download is the redacted PDF in `public/`; it is public once deployed.
+
 ## Still open
 
 See `docs/PLAN-jassi.md`: approve the positioning line and About, confirm the employer descriptor and hobbies line,
 internship numbers, BBA/MBA start years, a Japanese speaker to check the katakana name, rewrite the CV objective
-(it still says audit and assurance), domain, OG image, JSON-LD, Lighthouse and real-device testing, deploy.
+(it still says audit and assurance), a custom domain (optional), and real-device testing (Safari, Firefox, phones).
