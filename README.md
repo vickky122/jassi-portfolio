@@ -41,13 +41,15 @@ docs/           PLAN-jassi.md, anime-portfolio-plan-general.md
 - One reveal pattern everywhere: a diagonal slash wipe (clip-path). "Limited animation" (stepped easing) for small accents.
 - Only transform, opacity and clip-path are animated. Reduced motion is a calm "manga mode": no scrub, no parallax,
   no blink, no speed lines, no petals, no stacking; short fades only.
-- The hero portrait is `public/portrait/jassi.webp`: an illustrated portrait of Jassi (supplied by Vikrant as the
-  close match; the second, calmer version replaced a first one that read as stern), cut out of its background with
-  Apple Vision, edges cleaned, soft fade at the sides and bottom, about 55 KB, served as-is. To use a different
-  portrait, replace that file (transparent WebP, 820 x 1200; the chin is about 60% down the image, which the phone
-  layout relies on). The hero never covers the name: on desktop the name takes the left column and the portrait
-  stands on the right; on phones the portrait is sized to the space between the name and the text, so the chin
-  always lands just above it (see the `.hero` rules in `app/globals.css`).
+- The hero portrait is `public/portrait/jassi.webp`: an illustrated portrait of Jassi (smiling, in a suit and the
+  red and navy striped tie), supplied by Vikrant, cut out of its white background with Apple Vision, edges cleaned,
+  soft fade at the sides and bottom, about 76 KB, served as-is. Earlier versions (a hand-drawn SVG, then two
+  hooded-jacket portraits) were dropped because they did not look like him or read as stern. To use a different
+  portrait, replace that file (transparent WebP, 820 x 1200; hair top about 4% and chin about 60% down the image,
+  which the phone layout relies on). The hero never covers the name: on desktop the name takes the left column
+  (its size is calculated so the hair never reaches the last letter) and the portrait stands on the right; on phones
+  the portrait is sized to the space between the name and the text, so the chin always lands just above it (see the
+  `.hero` rules in `app/globals.css`).
 
 ## Deploy
 

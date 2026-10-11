@@ -173,7 +173,7 @@ export function Intro() {
           <div data-depth="1" className="h-full">
             <Image
               src="/portrait/jassi.webp"
-              alt={`Illustrated portrait of ${name.first} ${name.last}: a man with short dark hair and a full dark beard, calm and direct, in a black hooded jacket`}
+              alt={`Illustrated portrait of ${name.first} ${name.last}: a smiling young man with short dark hair swept up and light stubble, in a black suit, white shirt and a red and navy striped tie`}
               width={820}
               height={1200}
               priority

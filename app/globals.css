@@ -108,7 +108,7 @@
 }
 @media (min-width: 768px) {
   .t-hero-name {
-    font-size: clamp(5rem, min(17vw, 28svh), 22rem);
+    font-size: clamp(5rem, min(calc((67vw - 0.231 * min(88svh, 80vw) - 94px) / 2.96), 28svh), 22rem);
   }
 }
 .t-h1,
@@ -418,7 +418,7 @@ html[data-loader="skip"] .loader {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: calc(var(--fig-bottom) + 0.64 * var(--hf));
+  bottom: calc(var(--fig-bottom) + 0.61 * var(--hf));
   display: flex;
   justify-content: center;
   translate: 0 50%;
@@ -443,6 +443,6 @@ html[data-loader="skip"] .loader {
   }
   .hero-disc {
     width: min(52vw, 84svh);
-    translate: 0 -8%;
+    translate: 0 -3%;
   }
 }

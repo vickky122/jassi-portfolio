@@ -130,6 +130,7 @@ No GitHub or tech-stack material anywhere on the site. The site itself, built wi
 | 11 Oct 2026 | **Deployed**: private repo `vickky122/jassi-portfolio`, live at https://jassi-sharma.vercel.app (Vercel Hobby, project `jassi-sharma`). Commit identity is the personal GitHub no-reply address with no co-author trailer; Vercel Authentication disabled so links open without login. Live checks: pages, share image, sitemap, JSON-LD all use the new address; the served resume PDF has no phone, address, father's name or date of birth. |
 | 12 Oct 2026 | Hero character changed: the hand-drawn SVG did not match his face, so the hero now uses the illustrated portrait Vikrant supplied as the close match (cut out, edges cleaned, faded), in front of the giant name on the red sun. Outfit in that image is a black hooded jacket, not the suit. |
 | 12 Oct 2026 | Hero reworked: (1) portrait swapped to the calmer reference (relaxed brows, less stern); (2) the giant name no longer sits behind the portrait: desktop = name left, portrait right; phones = name on top, portrait sized to fit above the text, open-to-work signal moved to the label row. |
+| 12 Oct 2026 | Hero portrait replaced with the smiling suit portrait (white shirt, red and navy tie) Vikrant supplied: friendlier and matches the CV photo's outfit. Layout maths re-tuned for its larger head. |
 
 ## 11. Next action
 
