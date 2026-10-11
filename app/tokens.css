@@ -1,0 +1,45 @@
+/*
+ * Design tokens: "Crimson Night".
+ * Contrast (WCAG), measured on sRGB relative luminance:
+ *   paper on ink      ~ 17:1   | paper on crimson ~ 5.3:1 (AA at every size) | mute on ink ~ 8:1
+ *   cyan on ink       ~ 12:1   | ink on paper     ~ 17:1  | crimson on ink    ~ 3.4:1 (large type / graphics only)
+ * Rule: body text sits on ink, ink-2 or paper. Crimson is for fills, big type and the sun disc.
+ */
+:root {
+  --ink: #0b0a0f;
+  --ink-2: #14121b;
+  --ink-3: #1e1b28;
+  --crimson: #c8102e;
+  --crimson-deep: #8e0b20;
+  --paper: #f6f1ea;
+  --paper-dim: #d9d2c6;
+  --cyan: #3de0ff;
+  --mute: #b4aec0;
+  --sakura: #f7c6d0; /* petals in the credits only */
+
+  --frame-inset: 12px;
+  --rail: 22px;
+}
+@media (min-width: 768px) {
+  :root {
+    --frame-inset: 22px;
+    --rail: 34px;
+  }
+}
+
+/* Fluid type scale */
+:root {
+  --fs-giant: clamp(5rem, 22vw, 15.5rem);
+  --fs-h1: clamp(2.6rem, 8vw, 6.5rem);
+  --fs-h2: clamp(1.9rem, 4.6vw, 3.6rem);
+  --fs-h3: clamp(1.25rem, 2.2vw, 1.75rem);
+  --fs-body: clamp(1rem, 1.1vw + 0.7rem, 1.2rem);
+  --fs-label: 0.78rem;
+}
+
+/* font families are set by next/font in app/layout.tsx */
+:root {
+  --ff-display: var(--font-anton);
+  --ff-body: var(--font-manrope);
+  --ff-label: var(--font-jetbrains);
+}

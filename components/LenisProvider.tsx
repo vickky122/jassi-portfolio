@@ -1,0 +1,65 @@
+"use client";
+
+import "lenis/dist/lenis.css";
+import Lenis from "lenis";
+import { usePathname } from "next/navigation";
+import { createContext, useContext, useEffect, useRef, type ReactNode, type RefObject } from "react";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { gsap, ScrollTrigger } from "@/lib/motion/gsap";
+
+const LenisContext = createContext<RefObject<Lenis | null> | null>(null);
+
+/** Ref to the live Lenis instance, or null while it is off (reduced motion) or not yet started. */
+export function useLenis(): RefObject<Lenis | null> {
+  const ref = useContext(LenisContext);
+  if (!ref) throw new Error("useLenis must be used inside <LenisProvider>");
+  return ref;
+}
+
+/**
+ * Smooth scroll, driven by gsap's ticker so Lenis and ScrollTrigger share one clock.
+ * Mounted in the root layout, so the instance survives route changes.
+ * Reduced motion: Lenis is not created at all and the browser's native scrolling is used.
+ */
+export function LenisProvider({ children }: { children: ReactNode }) {
+  const lenisRef = useRef<Lenis | null>(null);
+  const reduced = useReducedMotion();
+  const pathname = usePathname();
+  const lastPath = useRef(pathname);
+
+  useEffect(() => {
+    if (reduced) return;
+
+    const lenis = new Lenis({ autoRaf: false, duration: 1.1, anchors: true });
+    const tick = (time: number) => lenis.raf(time * 1000);
+
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add(tick);
+    gsap.ticker.lagSmoothing(0);
+    lenisRef.current = lenis;
+
+    // The loader holds the page still; its "site-ready" event lets scrolling start.
+    if (document.documentElement.hasAttribute("data-loading")) lenis.stop();
+    const start = () => lenis.start();
+    window.addEventListener("site-ready", start);
+
+    return () => {
+      window.removeEventListener("site-ready", start);
+      gsap.ticker.remove(tick);
+      lenis.destroy();
+      lenisRef.current = null;
+    };
+  }, [reduced]);
+
+  // New route: scroll to its hash target or the top, and re-measure. Runs after the new page's own triggers exist.
+  useEffect(() => {
+    if (lastPath.current === pathname) return;
+    lastPath.current = pathname;
+    // a link like /#works lands on that chapter; any other route starts at the top
+    const target = window.location.hash ? document.querySelector<HTMLElement>(window.location.hash) : null;
+    lenisRef.current?.scrollTo(target ?? 0, { immediate: true });
+    ScrollTrigger.refresh();
+  }, [pathname]);
+
+  return <LenisContext.Provider value={lenisRef}>{children}</LenisContext.Provider>;
+}
