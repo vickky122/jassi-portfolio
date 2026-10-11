@@ -1,15 +1,17 @@
 import type { SVGProps } from "react";
 
 /**
- * Original flat, cel-shaded character drawn for the site, based on Jassi's photo: black suit, red and navy
- * striped tie, trimmed beard, dark quiff, eyes cast down and to the side. No third-party art.
+ * Original flat, cel-shaded character drawn for the site, based on Jassi's photos: round face with a broad jaw,
+ * thick dark hair with big volume and a fringe swept diagonally across the forehead, thick brows, heavy-lidded
+ * dark eyes, a full short beard (halftone stubble on the cheeks, solid on the jaw and chin), black suit and a red
+ * and navy striped tie. No third-party art.
  *
  * Layers are separate <g data-depth> groups so the Intro can drift them at different depths (multiplane camera).
  * The eyes have two states (`.eyes-open` / `.eyes-closed`) for the blink, and `.pupils` follow the cursor.
  * To swap in better art later, keep the same data-layer names: back, body, head, front.
  *
  * Palette: ink outline #0b0a0f, cyan rim light on the lit (left) edges to separate the black suit from the ink
- * background, crimson sun disc is drawn by the Intro behind this SVG.
+ * background; the crimson sun disc is drawn by the Intro behind this SVG.
  */
 const INK = "#0b0a0f";
 const SKIN = "#d9a27e";
@@ -28,6 +30,10 @@ export function Character({ title, ...props }: SVGProps<SVGSVGElement> & { title
   return (
     <svg viewBox="0 0 600 820" role="img" aria-label={title} {...props}>
       <defs>
+        <pattern id="stubble" width="7" height="7" patternUnits="userSpaceOnUse">
+          <circle cx="1.8" cy="1.8" r="1.35" fill="#2a1f24" />
+          <circle cx="5.3" cy="5.3" r="1.15" fill="#2a1f24" />
+        </pattern>
         <pattern id="tie-stripes" width="30" height="30" patternUnits="userSpaceOnUse" patternTransform="rotate(-38)">
           <rect width="30" height="30" fill={RED} />
           <rect y="0" width="30" height="9" fill={NAVY} />
@@ -37,7 +43,7 @@ export function Character({ title, ...props }: SVGProps<SVGSVGElement> & { title
       {/* ---------- back: hair volume behind the head ---------- */}
       <g data-layer="back" data-depth="0.6">
         <path
-          d="M188 304 C166 196 196 104 268 76 C330 54 412 66 426 130 C442 190 426 252 412 304 Z"
+          d="M196 304 C186 230 196 146 258 112 C296 96 372 100 402 124 C426 160 424 240 404 304 Z"
           fill={HAIR}
           stroke={INK}
           strokeWidth="4"
@@ -68,7 +74,7 @@ export function Character({ title, ...props }: SVGProps<SVGSVGElement> & { title
           opacity="0.85"
         />
         {/* neck */}
-        <path d="M262 392 L262 524 C280 548 320 548 338 524 L338 392 Z" fill={SKIN_SHADE} stroke={INK} strokeWidth="4" />
+        <path d="M254 392 L254 524 C276 550 324 550 346 524 L346 392 Z" fill={SKIN_SHADE} stroke={INK} strokeWidth="4" />
         {/* shirt V */}
         <path d="M262 518 L338 518 L322 604 L300 700 L278 604 Z" fill={SHIRT} stroke={INK} strokeWidth="3" strokeLinejoin="round" />
         <path d="M300 700 L322 604 L338 518 L330 600 Z" fill={SHIRT_SHADE} />
@@ -92,79 +98,94 @@ export function Character({ title, ...props }: SVGProps<SVGSVGElement> & { title
       {/* ---------- head ---------- */}
       <g data-layer="head" data-depth="1">
         {/* ears */}
-        <ellipse cx="213" cy="304" rx="15" ry="26" fill={SKIN} stroke={INK} strokeWidth="4" />
-        <ellipse cx="387" cy="304" rx="15" ry="26" fill={SKIN_SHADE} stroke={INK} strokeWidth="4" />
-        {/* face */}
+        <ellipse cx="199" cy="312" rx="15" ry="27" fill={SKIN} stroke={INK} strokeWidth="4" />
+        <ellipse cx="401" cy="312" rx="15" ry="27" fill={SKIN_SHADE} stroke={INK} strokeWidth="4" />
+        {/* face: round, broad jaw, fuller cheeks */}
         <path
-          d="M212 252 C210 342 240 418 300 440 C360 418 390 342 388 252 C386 192 345 160 300 160 C255 160 214 192 212 252 Z"
+          d="M200 258 C196 350 236 436 300 450 C364 436 404 350 400 258 C398 196 352 160 300 160 C248 160 202 196 200 258 Z"
           fill={SKIN}
           stroke={INK}
           strokeWidth="4"
           strokeLinejoin="round"
         />
         {/* cel shadow, light from the left */}
+        <path d="M346 196 C390 222 402 286 398 338 C392 390 350 434 300 448 C356 410 380 336 360 256 Z" fill={SKIN_SHADE} opacity="0.5" />
+        {/* nose-bridge light, as in the photos */}
+        <path d="M296 262 C300 282 300 300 296 318" fill="none" stroke="#efc4a0" strokeWidth="9" strokeLinecap="round" opacity="0.7" />
+
+        {/* beard: halftone stubble over the cheeks, solid and dark on the jaw, chin and moustache */}
         <path
-          d="M342 196 C382 220 392 282 386 334 C380 384 342 426 300 438 C350 402 372 334 354 256 Z"
-          fill={SKIN_SHADE}
-          opacity="0.6"
-        />
-        {/* beard: jaw and cheeks, with the mouth left open */}
-        <path
-          d="M214 296 C212 384 252 446 300 448 C348 446 388 384 386 296 C372 340 352 352 332 358 C320 348 280 348 268 358 C248 352 228 340 214 296 Z"
-          fill="#1a1620"
+          d="M199 298 C196 394 240 462 300 466 C360 462 404 394 401 298 C394 334 372 352 350 360 L250 360 C228 352 206 334 199 298 Z"
+          fill="#9a6a52"
           stroke={INK}
           strokeWidth="4"
           strokeLinejoin="round"
         />
-        <path d="M232 340 C246 394 272 424 300 430" fill="none" stroke={HAIR_HI} strokeWidth="4" strokeLinecap="round" opacity="0.8" />
-        {/* moustache */}
-        <path d="M268 360 C286 346 314 346 332 360 C318 368 282 368 268 360 Z" fill="#1a1620" stroke={INK} strokeWidth="3" strokeLinejoin="round" />
-        {/* mouth, a small calm line */}
-        <path d="M284 384 C293 390 307 390 316 384" fill="none" stroke="#d9a27e" strokeWidth="3.5" strokeLinecap="round" />
-        {/* nose */}
-        <path d="M300 308 C298 322 292 332 286 340 C294 346 306 346 314 340" fill="none" stroke={SKIN_SHADE} strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path
+          d="M199 298 C196 394 240 462 300 466 C360 462 404 394 401 298 C394 334 372 352 350 360 L250 360 C228 352 206 334 199 298 Z"
+          fill="url(#stubble)"
+        />
+        <path d="M206 330 C214 400 252 452 300 458 C348 452 386 400 394 330 C388 374 360 422 300 430 C240 422 212 374 206 330 Z" fill="#221a20" />
+        <path d="M262 404 C282 398 318 398 338 404 C336 430 322 448 300 452 C278 448 264 430 262 404 Z" fill="#221a20" />
+        <path d="M258 364 C276 348 324 348 342 364 C324 374 276 374 258 364 Z" fill="#221a20" stroke={INK} strokeWidth="2.5" strokeLinejoin="round" />
+        {/* lips: a calm, slightly downturned mouth */}
+        <path d="M278 384 C290 378 310 378 322 384 C316 398 284 398 278 384 Z" fill="#b8715a" stroke={INK} strokeWidth="2.5" strokeLinejoin="round" />
+        <path d="M280 385 C292 389 308 389 320 385" fill="none" stroke="#6e362d" strokeWidth="2.5" strokeLinecap="round" />
+        {/* nose: straight bridge, rounded tip */}
+        <path d="M303 306 C302 326 298 338 290 346 C298 354 312 354 320 346" fill="none" stroke={SKIN_SHADE} strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M292 348 C294 352 298 353 301 352 M306 352 C310 353 314 352 316 348" fill="none" stroke="#7a4d3a" strokeWidth="2.5" strokeLinecap="round" />
 
-        {/* eyes: open */}
+        {/* eyes: open, big and heavy-lidded, looking a little to the viewer's left */}
         <g className="eyes-open">
-          <path d="M228 302 C240 288 270 286 286 300 C270 310 242 312 228 302 Z" fill="#f6f1ea" stroke={INK} strokeWidth="3" strokeLinejoin="round" />
-          <path d="M372 302 C360 288 330 286 314 300 C330 310 358 312 372 302 Z" fill="#f6f1ea" stroke={INK} strokeWidth="3" strokeLinejoin="round" />
+          <path d="M212 306 C228 288 262 286 284 304 C266 320 232 322 212 306 Z" fill="#f6f1ea" stroke={INK} strokeWidth="3" strokeLinejoin="round" />
+          <path d="M388 306 C372 288 338 286 316 304 C334 320 368 322 388 306 Z" fill="#f6f1ea" stroke={INK} strokeWidth="3" strokeLinejoin="round" />
           <g className="pupils">
-            <circle cx="250" cy="302" r="11" fill="#2b1b14" />
-            <circle cx="250" cy="302" r="5.5" fill={INK} />
-            <circle cx="246" cy="298" r="3" fill="#fff" />
-            <circle cx="338" cy="302" r="11" fill="#2b1b14" />
-            <circle cx="338" cy="302" r="5.5" fill={INK} />
-            <circle cx="334" cy="298" r="3" fill="#fff" />
+            <circle cx="243" cy="304" r="14" fill="#2b1b14" />
+            <circle cx="243" cy="304" r="7.5" fill={INK} />
+            <circle cx="238" cy="299" r="3.6" fill="#fff" />
+            <circle cx="248" cy="309" r="1.8" fill="#fff" />
+            <circle cx="343" cy="304" r="14" fill="#2b1b14" />
+            <circle cx="343" cy="304" r="7.5" fill={INK} />
+            <circle cx="338" cy="299" r="3.6" fill="#fff" />
+            <circle cx="348" cy="309" r="1.8" fill="#fff" />
           </g>
           {/* heavy upper lids */}
-          <path d="M224 302 C238 282 272 280 290 300" fill="none" stroke={INK} strokeWidth="6" strokeLinecap="round" />
-          <path d="M376 302 C362 282 328 280 310 300" fill="none" stroke={INK} strokeWidth="6" strokeLinecap="round" />
+          <path d="M208 306 C226 284 266 282 288 304" fill="none" stroke={INK} strokeWidth="7.5" strokeLinecap="round" />
+          <path d="M392 306 C374 284 334 282 312 304" fill="none" stroke={INK} strokeWidth="7.5" strokeLinecap="round" />
+          <path d="M224 293 C240 283 264 283 278 292" fill="none" stroke={SKIN_SHADE} strokeWidth="3" strokeLinecap="round" opacity="0.8" />
+          <path d="M376 293 C360 283 336 283 322 292" fill="none" stroke={SKIN_SHADE} strokeWidth="3" strokeLinecap="round" opacity="0.8" />
         </g>
         {/* eyes: closed (blink), hidden until the blink */}
         <g className="eyes-closed" opacity="0">
-          <path d="M226 298 C240 312 272 314 288 298" fill="none" stroke={INK} strokeWidth="6" strokeLinecap="round" />
-          <path d="M374 298 C360 312 328 314 312 298" fill="none" stroke={INK} strokeWidth="6" strokeLinecap="round" />
+          <path d="M210 304 C230 320 268 322 288 304" fill="none" stroke={INK} strokeWidth="7.5" strokeLinecap="round" />
+          <path d="M390 304 C370 320 332 322 312 304" fill="none" stroke={INK} strokeWidth="7.5" strokeLinecap="round" />
         </g>
-        {/* brows */}
-        <path d="M222 274 C240 260 270 260 290 274" fill="none" stroke={HAIR} strokeWidth="9" strokeLinecap="round" />
-        <path d="M378 274 C360 260 330 260 310 274" fill="none" stroke={HAIR} strokeWidth="9" strokeLinecap="round" />
+        {/* brows: thick and straight, apart at the centre */}
+        <path d="M210 280 C230 266 260 266 282 278" fill="none" stroke={HAIR} strokeWidth="14" strokeLinecap="round" />
+        <path d="M390 280 C370 266 340 266 318 278" fill="none" stroke={HAIR} strokeWidth="14" strokeLinecap="round" />
       </g>
 
-      {/* ---------- front: the quiff and fringe ---------- */}
+      {/* ---------- front: big swept volume with tufts, a diagonal fringe ---------- */}
       <g data-layer="front" data-depth="1.5">
+        {/* main mass: short tapered sides, volume on top with tufts, kept compact */}
         <path
-          d="M194 286 C172 202 194 118 262 90 C300 66 376 62 410 110 C430 140 426 192 414 226 C410 242 398 264 392 286 C392 258 388 232 372 214 C370 236 356 250 336 250 C344 232 332 214 314 206 C312 230 296 244 272 246 C280 228 268 214 250 208 C248 232 232 246 214 256 C204 264 198 274 194 286 Z"
+          d="M198 300 L196 262 C190 236 188 208 194 184 C186 154 200 126 238 108 C252 88 288 82 314 94 C330 80 366 82 382 98 C414 106 430 134 424 166 C420 188 414 204 410 220 C408 236 406 252 402 272 L402 300 L388 274 C370 262 336 242 296 224 C266 210 236 198 214 210 C206 224 202 244 200 266 Z"
           fill={HAIR}
           stroke={INK}
           strokeWidth="4"
           strokeLinejoin="round"
         />
-        {/* cel highlights */}
-        <path d="M248 128 C280 100 332 96 370 114" fill="none" stroke={HAIR_HI} strokeWidth="7" strokeLinecap="round" opacity="0.9" />
-        <path d="M222 190 C226 160 242 140 262 128" fill="none" stroke={HAIR_HI} strokeWidth="5" strokeLinecap="round" opacity="0.8" />
-        <path d="M392 150 C402 168 402 188 396 208" fill="none" stroke={HAIR_HI} strokeWidth="5" strokeLinecap="round" opacity="0.7" />
-        {/* cyan rim light on the lit side of the hair */}
-        <path d="M194 286 C172 202 194 118 262 90" fill="none" stroke={RIM} strokeWidth="3" strokeLinecap="round" opacity="0.85" />
+        {/* swept locks hanging off the diagonal fringe edge, largest over the right brow */}
+        <path d="M338 234 C366 242 392 254 402 272 C406 286 402 296 396 304 C394 288 382 278 362 270 C348 262 340 250 338 234 Z" fill={HAIR} stroke={INK} strokeWidth="3.5" strokeLinejoin="round" />
+        <path d="M286 220 C312 226 338 238 348 254 C346 266 340 274 332 280 C332 266 322 254 306 246 C294 240 288 230 286 220 Z" fill={HAIR} stroke={INK} strokeWidth="3.5" strokeLinejoin="round" />
+        <path d="M240 208 C262 210 284 220 292 232 C288 242 282 248 276 252 C276 240 266 230 254 226 C246 222 242 216 240 208 Z" fill={HAIR} stroke={INK} strokeWidth="3.5" strokeLinejoin="round" />
+        {/* cel highlights: wavy strands flowing diagonally */}
+        <path d="M226 160 C262 130 322 124 376 146" fill="none" stroke={HAIR_HI} strokeWidth="8" strokeLinecap="round" opacity="0.9" />
+        <path d="M214 198 C232 172 266 156 302 154" fill="none" stroke={HAIR_HI} strokeWidth="6" strokeLinecap="round" opacity="0.85" />
+        <path d="M304 186 C344 186 380 200 408 226" fill="none" stroke={HAIR_HI} strokeWidth="5.5" strokeLinecap="round" opacity="0.8" />
+        <path d="M252 200 C294 204 340 224 374 248" fill="none" stroke={HAIR_HI} strokeWidth="4" strokeLinecap="round" opacity="0.7" />
+        {/* cyan rim light on the lit side */}
+        <path d="M194 184 C186 154 200 126 238 108 C252 88 288 82 314 94" fill="none" stroke={RIM} strokeWidth="3" strokeLinecap="round" opacity="0.85" />
       </g>
     </svg>
   );

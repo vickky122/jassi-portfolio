@@ -203,7 +203,7 @@ export function Intro() {
       <div data-rise className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex justify-center">
         <div data-figure data-intro className="h-[74svh] md:h-[88svh]">
           <Character
-            title={`Illustrated portrait of ${name.first} ${name.last}: a young man with a dark quiff and a trimmed beard, in a black suit and a red and navy striped tie`}
+            title={`Illustrated portrait of ${name.first} ${name.last}: a young man with thick dark hair swept across the forehead and a full short beard, in a black suit and a red and navy striped tie`}
             className="h-full w-auto"
           />
         </div>
