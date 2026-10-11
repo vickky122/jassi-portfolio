@@ -9,9 +9,10 @@ import { gsap, useGSAP } from "@/lib/motion/gsap";
 import { MQ, motion, slash } from "@/lib/motion/motion";
 
 /**
- * Chapter 01. The giant name sits behind the layered character, on a red sun disc. Entrance plays after the
- * opening ("site-ready"). Scroll: the two name lines slide apart and the character rises slightly (scrubbed).
- * Cursor: the portrait, the sun disc and the speed lines drift at different depths (multiplane camera).
+ * Chapter 01. Desktop: the giant name takes the left column (never covered), the portrait stands on the right in
+ * front of the red sun and speed lines. Phones: the name stacks across the top and the portrait sits below it.
+ * The entrance plays after the opening ("site-ready"). Scroll: the two name lines slide apart and the portrait rises
+ * slightly (scrubbed). Cursor: portrait, sun disc and speed lines drift at different depths (multiplane camera).
  * Reduced motion: a short fade, then everything is still ("manga mode"): no drift, no scrub.
  */
 export function Intro() {
@@ -121,11 +122,11 @@ export function Intro() {
       data-chapter-name={content.chapters[0].name}
       data-tone="ink"
       aria-labelledby="intro-title"
-      className="surface-ink relative isolate flex min-h-svh flex-col justify-end overflow-hidden"
+      className="hero surface-ink relative isolate flex min-h-svh flex-col justify-end overflow-hidden"
     >
-      {/* sun disc, its halftone print-offset, and the speed lines */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 grid place-items-center">
-        <div data-pdisc className="relative size-[min(96vw,84svh)] translate-y-[-4%] will-change-transform">
+      {/* sun disc, its halftone print-offset, and the speed lines: centred on the portrait */}
+      <div aria-hidden="true" className="hero-disc-wrap pointer-events-none -z-10">
+        <div data-pdisc className="hero-disc will-change-transform">
           <div data-burst data-intro className="absolute -inset-[34%]">
             <SpeedLines className="size-full text-paper" />
           </div>
@@ -149,42 +150,52 @@ export function Intro() {
         </div>
       </div>
 
-      {/* giant name, behind the character */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-[18svh] -z-0 flex flex-col items-center md:top-[10svh]">
+      {/* giant name: its own space, so no letter is ever hidden */}
+      <div
+        aria-hidden="true"
+        className="pad-x pointer-events-none absolute inset-x-0 top-[max(6.9rem,14svh)] z-20 flex flex-col items-center md:top-[max(7.5rem,16svh)] md:z-0 md:items-start"
+      >
         <div data-split="l">
-          <div data-name data-intro className="t-giant text-paper">
+          <div data-name data-intro className="t-hero-name text-paper">
             {name.first}
           </div>
         </div>
-        <div data-split="r">
-          <div data-name data-intro className="t-giant text-paper">
+        <div data-split="r" className="md:ml-[4vw]">
+          <div data-name data-intro className="t-hero-name text-paper">
             {name.last}
           </div>
         </div>
       </div>
 
-      {/* the character: wrapper rises on scroll, inner figure does the entrance */}
-      <div data-rise className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex justify-center">
-        <div data-figure data-intro className="h-[74svh] md:h-[88svh]">
+      {/* the portrait: wrapper rises on scroll, inner figure does the entrance */}
+      <div data-rise className="pointer-events-none absolute inset-y-0 right-0 z-10 flex w-full items-end justify-center md:w-[58%]">
+        <div data-figure data-intro className="hero-fig">
           <div data-depth="1" className="h-full">
             <Image
               src="/portrait/jassi.webp"
-              alt={`Illustrated portrait of ${name.first} ${name.last}: a man with short dark hair and a full dark beard, in a black hooded jacket`}
+              alt={`Illustrated portrait of ${name.first} ${name.last}: a man with short dark hair and a full dark beard, calm and direct, in a black hooded jacket`}
               width={820}
               height={1200}
               priority
-              sizes="(min-width: 768px) 60svh, 52svh"
+              unoptimized
               className="h-full w-auto max-w-none"
             />
           </div>
         </div>
       </div>
 
-      {/* episode label */}
-      <div className="pad-x absolute top-[5.2rem] right-0 left-0 z-20 flex items-center justify-between md:top-24">
-        <div data-tag data-intro className="t-label flex items-center gap-3 text-paper">
+      {/* episode label; on phones the open-to-work signal sits on the same row to save height */}
+      <div className="pad-x absolute top-[5.2rem] right-0 left-0 z-30 flex items-center justify-between gap-3 md:top-24">
+        <div data-tag data-intro className="t-label flex shrink-0 items-center gap-3 whitespace-nowrap text-paper">
           <Jp className="text-base">{content.ornaments.episodes[0]}</Jp>
-          <span>episode 01 · {content.chapters[0].episodeTitle}</span>
+          <span>
+            <span className="md:hidden max-[380px]:hidden">ep 01</span>
+            <span className="hidden md:inline">episode 01 · {content.chapters[0].episodeTitle}</span>
+          </span>
+        </div>
+        <div data-tag data-intro className="t-label flex shrink-0 items-center gap-2 whitespace-nowrap text-cyan md:hidden">
+          <i aria-hidden="true" className="size-2 rounded-full bg-cyan" />
+          {content.target.availability}
         </div>
       </div>
 
@@ -199,14 +210,14 @@ export function Intro() {
       <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-[52%] bg-linear-to-t from-ink via-ink/85 to-transparent md:h-[36%]" />
 
       {/* info: the 5-second recruiter test lives here */}
-      <div className="pad-x relative z-30 pb-[calc(var(--frame-inset)+2.2rem)]">
+      <div className="pad-x relative z-30 pb-[calc(var(--frame-inset)+1.6rem)] md:pb-[calc(var(--frame-inset)+2.2rem)]">
         <h1 id="intro-title" className="sr-only">
           {name.first} {name.last}: {content.target.role}
         </h1>
-        <p data-info data-intro className="max-w-xl text-[clamp(1.15rem,2.4vw,1.7rem)] leading-snug font-bold">
+        <p data-info data-intro className="max-w-xl text-[clamp(1.02rem,2.4vw,1.7rem)] leading-snug font-bold">
           {content.positioning.options[content.positioning.chosen]}
         </p>
-        <div data-info data-intro className="t-label mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
+        <div data-info data-intro className="t-label mt-3 hidden flex-wrap items-center gap-x-5 gap-y-2 md:mt-4 md:flex">
           <span className="pill text-cyan">
             <i aria-hidden="true" />
             {content.target.availability}
@@ -214,7 +225,7 @@ export function Intro() {
           <span>{content.contact.location}</span>
           <span>{content.target.domain}</span>
         </div>
-        <div data-info data-intro className="mt-5 flex flex-wrap gap-3">
+        <div data-info data-intro className="mt-4 flex flex-wrap gap-3 md:mt-5">
           <a href="#cases" className="btn btn-solid">
             view arcs
           </a>

@@ -98,6 +98,19 @@
   text-transform: uppercase;
   letter-spacing: -0.01em;
 }
+/* the hero name: sized by the smaller of width and height so it never collides with the info block */
+.t-hero-name {
+  font-family: var(--ff-display), Impact, sans-serif;
+  font-size: clamp(3.6rem, min(22vw, 12svh), 8rem);
+  line-height: 0.84;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+@media (min-width: 768px) {
+  .t-hero-name {
+    font-size: clamp(5rem, min(17vw, 28svh), 22rem);
+  }
+}
 .t-h1,
 .t-h2,
 .t-h3 {
@@ -385,4 +398,51 @@ html[data-loader="skip"] .loader {
   background: color-mix(in srgb, var(--ink) 86%, transparent);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
+}
+
+/* ---------- hero composition ----------
+ * Phones: the portrait is sized to the space between the name and the info block, so the chin always lands just
+ * above the text, whatever the screen height (--hf is the portrait height; its chin sits 60% down the image).
+ * Desktop: the name takes the left column and the portrait stands in the right 58%, never overlapping the name. */
+.hero {
+  --hero-info: 10.5rem;
+  --hero-top: 16.5rem;
+  --hf: clamp(300px, calc((100svh - var(--hero-top) - var(--hero-info)) / 0.55), min(150vw, 640px));
+  --fig-bottom: calc(var(--hero-info) - 0.4 * var(--hf));
+}
+.hero-fig {
+  height: var(--hf);
+  margin-bottom: var(--fig-bottom);
+}
+.hero-disc-wrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--fig-bottom) + 0.64 * var(--hf));
+  display: flex;
+  justify-content: center;
+  translate: 0 50%;
+}
+.hero-disc {
+  position: relative;
+  width: min(88vw, calc(0.95 * var(--hf)));
+  aspect-ratio: 1;
+}
+@media (min-width: 768px) {
+  .hero-fig {
+    height: min(88svh, 80vw);
+    margin-bottom: 0;
+  }
+  .hero-disc-wrap {
+    left: auto;
+    top: 0;
+    bottom: 0;
+    width: 58%;
+    align-items: center;
+    translate: none;
+  }
+  .hero-disc {
+    width: min(52vw, 84svh);
+    translate: 0 -8%;
+  }
 }

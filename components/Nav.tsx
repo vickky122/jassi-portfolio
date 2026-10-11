@@ -45,12 +45,12 @@ export function Nav() {
     >
       <nav
         aria-label="primary"
-        className="nav-bar t-label panel flex items-center justify-between gap-4 px-4 py-2 text-paper"
+        className="nav-bar t-label panel flex items-center justify-between gap-4 px-4 py-2 text-paper max-[380px]:px-3 max-[380px]:text-[0.7rem]"
       >
         <Link href="/#intro" className="hidden font-bold tracking-wider whitespace-nowrap sm:block">
           {content.name.first} {content.name.last}
         </Link>
-        <ul className="flex w-full items-center justify-between gap-3 sm:w-auto sm:justify-end md:gap-7">
+        <ul className="flex w-full items-center justify-between gap-2 whitespace-nowrap sm:w-auto sm:justify-end sm:gap-4 md:gap-7">
           {links.map((l) => (
             <li key={l.href}>
               <Link href={l.href} className="link-draw inline-block py-2">
