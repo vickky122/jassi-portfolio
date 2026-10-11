@@ -27,7 +27,7 @@ his LinkedIn profile. Anything unknown is `"TODO"`: shown as a dashed marker in 
 ```
 app/            layout, tokens.css, globals.css, page, resume/, not-found, icon, robots
 chapters/       Intro, Recap, Profile, Journey, Cases, Craft, Contact
-components/     Character (layered SVG), Frame (rails), Loader, Nav, Cursor, Footer, KeyVisual, SpeedLines, ...
+components/     Frame (rails), Loader, Nav, Cursor, Footer, KeyVisual, SpeedLines, ...
 hooks/          useReducedMotion, useSlash (the one reveal pattern)
 lib/motion/     gsap.ts, motion.ts (eases, durations, the slash polygon, reduced-motion twins)
 content/        content.ts
