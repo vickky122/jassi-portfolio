@@ -61,7 +61,7 @@ export const content = {
   },
 
   /**
-   * Domain: INTERNATIONAL BUSINESS (confirmed by Vikrant on 11 Oct 2026; matches the LinkedIn headline).
+   * Domain: INTERNATIONAL BUSINESS (confirmed on 11 Oct 2026; matches the LinkedIn headline).
    * The CV's objective still says audit and assurance, so the CV text needs rewriting to match. The specific
    * job title is not decided, so only the domain is shown.
    */
